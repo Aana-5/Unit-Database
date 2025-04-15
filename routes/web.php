@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\Unit;
 use App\Models\Product;
+use  App\Models\categorie;
 use Illuminate\Http\Request;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -126,3 +128,77 @@ Route::get('/products-units-data', function () {
     $products = Product::with('unit')->get();
     return response()->json($products);
 });
+
+
+
+
+// React Views categories
+Route::get('/categories/view', function () {
+    return view('react');
+});
+
+Route::get('/categories/create', function () {
+    return view('react');
+});
+
+Route::get('/categories/edit/{id}', function ($id) {
+    return view('react');
+});
+
+// API Routes
+Route::get('/categories-data', function () {
+    return response()->json(Category::all());
+});
+
+Route::get('/categories-data/{id}', function ($id) {
+    return response()->json(Category::findOrFail($id));
+});
+
+Route::post('/categories-store', function (Request $request) {
+    $request->validate([
+        'category_name' => 'required|string|max:255',
+        'remark' => 'nullable|string|max:255',
+    ]);
+
+    Category::create([
+        'category_name' => $request->category_name,
+        'remark' => $request->remark,
+    ]);
+
+    return response()->json(['message' => 'Category created successfully!']);
+});
+
+Route::put('/categories-update/{id}', function (Request $request, $id) {
+    $request->validate([
+        'category_name' => 'required|string|max:255',
+        'remark' => 'nullable|string|max:255',
+    ]);
+
+    $category = Category::findOrFail($id);
+    $category->update([
+        'category_name' => $request->category_name,
+        'remark' => $request->remark,
+    ]);
+
+    return response()->json(['message' => 'Category updated successfully!']);
+});
+
+Route::delete('/categories/{id}', function ($id) {
+    $category = Category::find($id);
+    if (!$category) {
+        return response()->json(['message' => 'Category not found.'], 404);
+    }
+
+    $category->delete();
+
+    return response()->json(['message' => 'Category deleted successfully!']);
+});
+
+
+
+
+
+
+
+
+

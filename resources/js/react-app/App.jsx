@@ -11,6 +11,12 @@ import ProductsEdit from '../components/ProductsEdit';
 import ProductsDelete from '../components/ProductsDelete';
 import ProductsUnitsView from '../components/ProductsUnitsView';
 
+import CategoriesView from '.components/CategoriesView';
+import CategoriesCreate from '.components/CategoriesCreate';
+import CategoriesEdit from '.components/CategoriesEdit';
+import CategoriesDelete from '.components/CategoriesDelete';
+
+
 export default function App() {
     return (
         <React.StrictMode>
@@ -25,6 +31,13 @@ export default function App() {
                     <Route path="/products/edit/:id" element={<ProductsEdit />} />
                     <Route path="/products/delete/:id" element={<ProductsDelete />} />
                     <Route path="/products-units/view" element={<ProductsUnitsView />} />
+
+                    
+                <Route path="/categories/view" element={<CategoriesView />} />
+                <Route path="/categories/create" element={<CategoriesCreate />} />
+                <Route path="/categories/edit/:id" element={<CategoriesEdit />} />
+                <Route path="/categories/delete/:id" element={<CategoriesDelete />} />
+
                 </Routes>
             </BrowserRouter>
         </React.StrictMode>
