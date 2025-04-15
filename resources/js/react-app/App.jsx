@@ -9,6 +9,7 @@ import ProductsView from '../components/ProductsView';
 import ProductsCreate from '../components/ProductsCreate';
 import ProductsEdit from '../components/ProductsEdit';
 import ProductsDelete from '../components/ProductsDelete';
+import ProductsUnitsView from '../components/ProductsUnitsView';
 
 export default function App() {
     return (
@@ -23,6 +24,7 @@ export default function App() {
                     <Route path="/products/create" element={<ProductsCreate />} />
                     <Route path="/products/edit/:id" element={<ProductsEdit />} />
                     <Route path="/products/delete/:id" element={<ProductsDelete />} />
+                    <Route path="/products-units/view" element={<ProductsUnitsView />} />
                 </Routes>
             </BrowserRouter>
         </React.StrictMode>

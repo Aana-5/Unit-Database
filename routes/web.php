@@ -116,3 +116,13 @@ Route::delete('/products/{id}', function ($id) {
 
     return response()->json(['message' => 'Product deleted successfully!']);
 });
+
+//Products & Units Merge
+Route::get('/products-units/view', function () {
+    return view('react');
+});
+
+Route::get('/products-units-data', function () {
+    $products = Product::with('unit')->get();
+    return response()->json($products);
+});
