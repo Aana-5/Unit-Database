@@ -49,10 +49,8 @@ export default function ProductsUnitsView() {
                         <tr>
                             <th>Product ID</th>
                             <th>Product Name</th>
-                            <th>Unit ID</th>
+                            {/* <th>Unit ID</th> */}
                             <th>Unit Name</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -60,18 +58,8 @@ export default function ProductsUnitsView() {
                             <tr key={product.id}>
                                 <td>{product.id}</td>
                                 <td>{product.product_name}</td>
-                                <td>{product.unit_id || 'N/A'}</td>
+                                {/* <td>{product.unit_id || 'N/A'}</td> */}
                                 <td>{getUnitName(product.unit_id)}</td>
-                                <td>
-                                    <Link to={`/products/edit/${product.id}`} className="btn btn-warning btn-sm">
-                                        Edit
-                                    </Link>
-                                </td>
-                                <td>
-                                    <Link to={`/products/delete/${product.id}`} className="btn btn-danger btn-sm">
-                                        Delete
-                                    </Link>
-                                </td>
                             </tr>
                         ))}
                     </tbody>
