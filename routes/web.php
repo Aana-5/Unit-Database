@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Models\Unit;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 Route::get('/', function () {
@@ -64,4 +65,54 @@ Route::delete('/units/{id}', function ($id) {
     }
     $unit->delete();
     return response()->json(['message' => 'Unit deleted']);
+});
+
+//Products Table
+Route::get('/products/view', function () {
+    return view('react');
+});
+
+Route::get('/products-data', function () {
+    return response()->json(Product::all());
+});
+
+Route::get('/products/create', function () {
+    return view('react');
+});
+
+Route::post('/products-store', function (Request $request) {
+    $validated = $request->validate([
+        'product_name' => 'required|string|max:255',
+        'remark' => 'nullable|string|max:255',
+    ]);
+
+    Product::create($validated);
+    return response()->json(['message' => 'Product created successfully!']);
+});
+
+Route::get('/units/edit/{id}', function ($id) {
+    return view('react');
+});
+
+Route::get('/products-data/{id}', function ($id) {
+    return response()->json(Product::findOrFail($id));
+});
+
+Route::put('/products-update/{id}', function (Request $request, $id) {
+    $product = Product::findOrFail($id);
+
+    $validated = $request->validate([
+        'product_name' => 'required|string|max:255',
+        'remark' => 'nullable|string|max:255',
+    ]);
+
+    $product->update($validated);
+    return response()->json(['message' => 'Product updated successfully!']);
+});
+
+Route::delete('/products/{id}', function ($id) {
+    $product = Product::findOrFail($id);
+    $product->delete();
+
+    return response()->json(['message' => 'Product deleted successfully!']);
 });
