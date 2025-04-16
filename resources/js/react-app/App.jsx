@@ -10,6 +10,8 @@ import ProductsCreate from '../components/ProductsCreate';
 import ProductsEdit from '../components/ProductsEdit';
 import ProductsDelete from '../components/ProductsDelete';
 import ProductsUnitsView from '../components/ProductsUnitsView';
+import ProductsUnitsCreate from '../components/ProductsUnitsCreate';
+import ProductsUnitsEdit from '../components/ProductsUnitsEdit';
 
 export default function App() {
     return (
@@ -25,6 +27,8 @@ export default function App() {
                     <Route path="/products/edit/:id" element={<ProductsEdit />} />
                     <Route path="/products/delete/:id" element={<ProductsDelete />} />
                     <Route path="/products-units/view" element={<ProductsUnitsView />} />
+                    <Route path="/products-units/create" element={<ProductsUnitsCreate />} />
+                    <Route path="/products-units/edit/:id" element={<ProductsUnitsEdit />} />
                 </Routes>
             </BrowserRouter>
         </React.StrictMode>

@@ -25,7 +25,6 @@ export default function ProductsUnitsView() {
         fetchData();
     }, []);
 
-    // Helper to get unit name by unit ID
     const getUnitName = (unitId) => {
         const unit = units.find(u => u.id === unitId);
         return unit ? unit.unit_name : 'N/A';
@@ -35,6 +34,9 @@ export default function ProductsUnitsView() {
         <div className="container mt-5">
             <div className="d-flex justify-content-between align-items-center mb-4">
                 <h2>Products with Units</h2>
+                <Link to="/products-units/create" className="btn btn-primary">
+                    + Create
+                </Link>
             </div>
 
             {loading ? (
@@ -49,8 +51,9 @@ export default function ProductsUnitsView() {
                         <tr>
                             <th>Product ID</th>
                             <th>Product Name</th>
-                            {/* <th>Unit ID</th> */}
                             <th>Unit Name</th>
+                            <th>Edits</th>
+                            <th>Deletes</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,8 +61,17 @@ export default function ProductsUnitsView() {
                             <tr key={product.id}>
                                 <td>{product.id}</td>
                                 <td>{product.product_name}</td>
-                                {/* <td>{product.unit_id || 'N/A'}</td> */}
                                 <td>{getUnitName(product.unit_id)}</td>
+                                <td>
+                                    <Link to={`/products-units/edit/${product.id}`} className="btn btn-warning btn-sm me-2">
+                                        Edit
+                                    </Link>
+                                </td>
+                                <td>
+                                    <Link to={`/products/delete/${product.id}`} className="btn btn-danger btn-sm">
+                                        Delete
+                                    </Link>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
