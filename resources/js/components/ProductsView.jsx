@@ -21,7 +21,7 @@ export default function ProductsView() {
     return (
         <div className="container mt-5">
             <div className="d-flex justify-content-between align-items-center mb-4">
-                <h2>Products Table</h2>
+                <h2>Products Table (WITHOUT UNITS)</h2>
                 <Link to="/products/create" className="btn btn-success">
                     + Add Product
                 </Link>
