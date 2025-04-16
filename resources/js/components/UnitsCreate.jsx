@@ -66,7 +66,7 @@ export default function UnitsCreate() {
                 </div>
 
                 <button type="submit" className="btn btn-primary w-100">
-                    Submit Unit
+                    Create Unit
                 </button>
             </form>
         </div>

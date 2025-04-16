@@ -33,7 +33,7 @@ export default function ProductsUnitsView() {
     return (
         <div className="container mt-5">
             <div className="d-flex justify-content-between align-items-center mb-4">
-                <h2>Products with Units</h2>
+                <h2>Products</h2>
                 <Link to="/products-units/create" className="btn btn-primary">
                     + Create
                 </Link>
