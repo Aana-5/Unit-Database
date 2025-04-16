@@ -46,7 +46,7 @@ class ProductController extends Controller
         $validated = $request->validate([
             'product_name' => 'required|string|max:255',
             'remark' => 'nullable|string|max:255',
-            'unit_id' => $request->unit_id,
+            'unit_id' => 'nullable|exists:units,id',
         ]);
 
         $product->update($validated);
