@@ -68,7 +68,7 @@ export default function ProductsUnitsView() {
                                     </Link>
                                 </td>
                                 <td>
-                                    <Link to={`/products/delete/${product.id}`} className="btn btn-danger btn-sm">
+                                    <Link to={`/products-units/delete/${product.id}`} className="btn btn-danger btn-sm">
                                         Delete
                                     </Link>
                                 </td>
