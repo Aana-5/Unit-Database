@@ -8,6 +8,8 @@ export default function ProductsUnitsEdit() {
 
     const [productName, setProductName] = useState('');
     const [productRemark, setProductRemark] = useState('');
+    const [categoryName, setCategoryName] = useState('');
+    const [categoryList, setCategoryList] = useState([]);
     const [unitId, setUnitId] = useState('');
     const [units, setUnits] = useState([]);
 
@@ -17,7 +19,8 @@ export default function ProductsUnitsEdit() {
             .then(res => {
                 setProductName(res.data.product_name);
                 setProductRemark(res.data.remark || '');
-                setUnitId(res.data.unit_id); // Pre-select the unit
+                setCategoryName(res.data.category_name || '');
+                setUnitId(res.data.unit_id);
             })
             .catch(err => console.error('Error fetching product:', err));
 
@@ -25,6 +28,14 @@ export default function ProductsUnitsEdit() {
         axios.get('/units-data')
             .then(res => setUnits(res.data))
             .catch(err => console.error('Error fetching units:', err));
+
+        // Fetch all categories
+        axios.get('/products-data')
+            .then(res => {
+                const uniqueCategories = [...new Set(res.data.map(p => p.category_name).filter(Boolean))];
+                setCategoryList(uniqueCategories);
+            })
+            .catch(err => console.error('Error fetching categories:', err));
     }, [id]);
 
     const handleSubmit = (e) => {
@@ -33,6 +44,7 @@ export default function ProductsUnitsEdit() {
         axios.put(`/products-update/${id}`, {
             product_name: productName,
             remark: productRemark,
+            category_name: categoryName,
             unit_id: Number(unitId),
         })
             .then(() => navigate('/products-units/view'))
@@ -62,6 +74,23 @@ export default function ProductsUnitsEdit() {
                         value={productRemark}
                         onChange={(e) => setProductRemark(e.target.value)}
                     />
+                </div>
+
+                <div className="mb-3">
+                    <label className="form-label">Category Name</label>
+                    <select
+                        className="form-select"
+                        value={categoryName}
+                        onChange={(e) => setCategoryName(e.target.value)}
+                        required
+                    >
+                        <option value="">-- Select Category --</option>
+                        {categoryList.map((cat, index) => (
+                            <option key={index} value={cat}>
+                                {cat}
+                            </option>
+                        ))}
+                    </select>
                 </div>
 
                 <div className="mb-3">

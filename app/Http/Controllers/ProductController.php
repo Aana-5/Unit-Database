@@ -33,6 +33,7 @@ class ProductController extends Controller
             'product_name' => 'required|string|max:255',
             'remark' => 'nullable|string|max:255',
             'unit_id' => 'nullable|exists:units,id',
+            'category_name' => 'nullable|string|max:255',
         ]);
 
         Product::create($validated);
@@ -47,6 +48,7 @@ class ProductController extends Controller
             'product_name' => 'required|string|max:255',
             'remark' => 'nullable|string|max:255',
             'unit_id' => 'nullable|exists:units,id',
+            'category_name' => 'nullable|string|max:255',
         ]);
 
         $product->update($validated);

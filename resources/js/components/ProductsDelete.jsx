@@ -64,6 +64,7 @@ export default function ProductsDelete() {
                     <li className="list-group-item"><strong>ID:</strong> {product.id}</li>
                     <li className="list-group-item"><strong>Product Name:</strong> {product.product_name}</li>
                     <li className="list-group-item"><strong>Remark:</strong> {product.remark}</li>
+                    <li className="list-group-item"><strong>Category Name:</strong> {product.category_name}</li>
                 </ul>
 
                 <div className="d-flex justify-content-center gap-3">

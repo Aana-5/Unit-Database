@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 export default function ProductsCreate() {
     const [productName, setProductName] = useState('');
     const [remark, setRemark] = useState('');
+    const [categoryName, setCategoryName] = useState(''); // ✅ New state
     const [successMsg, setSuccessMsg] = useState('');
     const [errorMsg, setErrorMsg] = useState('');
 
@@ -22,12 +23,14 @@ export default function ProductsCreate() {
             await axios.post('/products-store', {
                 product_name: productName,
                 remark: remark,
+                category_name: categoryName, // ✅ Send category name
             });
 
             setSuccessMsg('Product added successfully! 🍎🎉');
             setErrorMsg('');
             setProductName('');
             setRemark('');
+            setCategoryName('');
             navigate('/products/view');
         } catch (error) {
             console.error('Error creating product:', error);
@@ -62,6 +65,16 @@ export default function ProductsCreate() {
                         className="form-control"
                         value={remark}
                         onChange={(e) => setRemark(e.target.value)}
+                    />
+                </div>
+
+                <div className="mb-3">
+                    <label className="form-label">Category Name</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        value={categoryName}
+                        onChange={(e) => setCategoryName(e.target.value)}
                     />
                 </div>
 

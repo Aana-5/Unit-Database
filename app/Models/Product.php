@@ -13,6 +13,7 @@ class Product extends Model
         'product_name',
         'remark',
         'unit_id',
+        'category_name',
     ];
 
     public function unit()

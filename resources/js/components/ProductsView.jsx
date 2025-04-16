@@ -40,6 +40,7 @@ export default function ProductsView() {
                             <th>ID</th>
                             <th>Product Name</th>
                             <th>Remark</th>
+                            <th>Category Name</th>
                             <th>Edit</th>
                             <th>Delete</th>
                         </tr>
@@ -50,6 +51,7 @@ export default function ProductsView() {
                                 <td>{product.id}</td>
                                 <td>{product.product_name}</td>
                                 <td>{product.remark}</td>
+                                <td>{product.category_name}</td>
                                 <td>
                                     <Link to={`/products/edit/${product.id}`} className="btn btn-warning btn-sm">
                                         Edit

@@ -5,21 +5,22 @@ import { useNavigate } from 'react-router-dom';
 export default function ProductCreateForm() {
     const [productName, setProductName] = useState('');
     const [productRemark, setProductRemark] = useState('');
+    const [categoryName, setCategoryName] = useState('');
     const [unitName, setUnitName] = useState('');
 
-    const [productRemarksList, setProductRemarksList] = useState([]);
+    const [categoryList, setCategoryList] = useState([]);
     const [unitNamesList, setUnitNamesList] = useState([]);
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Fetch product remarks
+        // Fetch unique category names
         axios.get('/products-data')
             .then(res => {
-                const uniqueRemarks = [...new Set(res.data.map(p => p.remark))];
-                setProductRemarksList(uniqueRemarks);
+                const uniqueCategories = [...new Set(res.data.map(p => p.category_name))].filter(Boolean);
+                setCategoryList(uniqueCategories);
             })
-            .catch(err => console.error('Error fetching product remarks:', err));
+            .catch(err => console.error('Error fetching categories:', err));
 
         // Fetch unit names
         axios.get('/units-data')
@@ -32,13 +33,12 @@ export default function ProductCreateForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!productName || !productRemark || !unitName) {
+        if (!productName || !productRemark || !categoryName || !unitName) {
             alert('Please fill in all fields.');
             return;
         }
 
         try {
-            // Get the unit from the list (assumes each unit name is unique)
             const unitRes = await axios.get('/units-data');
             const selectedUnit = unitRes.data.find(u => u.unit_name === unitName);
 
@@ -47,7 +47,7 @@ export default function ProductCreateForm() {
             if (selectedUnit) {
                 unitId = selectedUnit.id;
             } else {
-                // If unit doesn't exist, create a new one with blank remark
+                // If unit doesn't exist, create a new one
                 const newUnit = await axios.post('/units-store', {
                     unit_name: unitName,
                     remark: '',
@@ -58,6 +58,7 @@ export default function ProductCreateForm() {
             await axios.post('/products-store', {
                 product_name: productName,
                 remark: productRemark,
+                category_name: categoryName,
                 unit_id: unitId,
             });
 
@@ -84,20 +85,33 @@ export default function ProductCreateForm() {
                     />
                 </div>
 
-                {/* Product Remark Dropdown */}
+                {/* Product Remark (Text Input) */}
                 <div className="mb-3">
                     <label htmlFor="productRemark" className="form-label">Product Remark</label>
-                    <select
+                    <input
+                        type="text"
                         id="productRemark"
-                        className="form-select"
+                        className="form-control"
                         value={productRemark}
                         onChange={(e) => setProductRemark(e.target.value)}
                         required
+                    />
+                </div>
+
+                {/* Category Name Dropdown */}
+                <div className="mb-3">
+                    <label htmlFor="categoryName" className="form-label">Category Name</label>
+                    <select
+                        id="categoryName"
+                        className="form-select"
+                        value={categoryName}
+                        onChange={(e) => setCategoryName(e.target.value)}
+                        required
                     >
-                        <option value="">Select Remark</option>
-                        {productRemarksList.map((remark, index) => (
-                            <option key={index} value={remark}>
-                                {remark}
+                        <option value="">Select Category</option>
+                        {categoryList.map((cat, index) => (
+                            <option key={index} value={cat}>
+                                {cat}
                             </option>
                         ))}
                     </select>
@@ -121,8 +135,6 @@ export default function ProductCreateForm() {
                         ))}
                     </select>
                 </div>
-
-                {/* Removed Unit Remark */}
 
                 <button type="submit" className="btn btn-primary">Create Product</button>
             </form>

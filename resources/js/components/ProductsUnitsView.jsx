@@ -52,6 +52,7 @@ export default function ProductsUnitsView() {
                             <th>Product ID</th>
                             <th>Product Name</th>
                             <th>Unit Name</th>
+                            <th>Category Name</th>
                             <th>Edits</th>
                             <th>Deletes</th>
                         </tr>
@@ -62,6 +63,7 @@ export default function ProductsUnitsView() {
                                 <td>{product.id}</td>
                                 <td>{product.product_name}</td>
                                 <td>{getUnitName(product.unit_id)}</td>
+                                <td>{product.category_name || 'N/A'}</td>
                                 <td>
                                     <Link to={`/products-units/edit/${product.id}`} className="btn btn-warning btn-sm me-2">
                                         Edit

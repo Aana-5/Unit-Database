@@ -8,19 +8,21 @@ export default function ProductsEdit() {
 
     const [product_name, setProductName] = useState('');
     const [remark, setRemark] = useState('');
+    const [category_name, setCategoryName] = useState('');
 
     useEffect(() => {
         axios.get(`/products-data/${id}`)
             .then(res => {
                 setProductName(res.data.product_name);
                 setRemark(res.data.remark || '');
+                setCategoryName(res.data.category_name || '');
             })
             .catch(err => console.error("Error fetching product:", err));
     }, [id]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.put(`/products-update/${id}`, { product_name, remark })
+        axios.put(`/products-update/${id}`, { product_name, remark, category_name })
             .then(() => navigate('/products/view'))
             .catch(err => console.error("Error updating product:", err));
     };
@@ -46,6 +48,15 @@ export default function ProductsEdit() {
                         className="form-control"
                         value={remark}
                         onChange={(e) => setRemark(e.target.value)}
+                    />
+                </div>
+                <div className="mb-3">
+                    <label className="form-label">Category Name</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        value={category_name}
+                        onChange={(e) => setCategoryName(e.target.value)}
                     />
                 </div>
                 <button type="submit" className="btn btn-success">Update Product</button>

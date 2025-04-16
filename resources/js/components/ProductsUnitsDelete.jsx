@@ -75,6 +75,7 @@ export default function ProductsUnitsDelete() {
                     <li className="list-group-item"><strong>ID:</strong> {product.id}</li>
                     <li className="list-group-item"><strong>Product Name:</strong> {product.product_name}</li>
                     <li className="list-group-item"><strong>Remark:</strong> {product.remark || 'N/A'}</li>
+                    <li className="list-group-item"><strong>Category Name:</strong> {product.category_name || 'N/A'}</li>
                     <li className="list-group-item"><strong>Unit:</strong> {product.unit_name || 'N/A'}</li>
                 </ul>
 
